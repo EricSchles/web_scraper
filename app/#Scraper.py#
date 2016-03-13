@@ -86,7 +86,8 @@ class Scraper:
             "westchester":self.generate_pages("http://watertown.backpage.com/")
         }
         return places[place]
-        
+
+    #
     def scraping_pages(self,links):
         responses = []
         for link in links:
