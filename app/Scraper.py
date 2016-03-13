@@ -86,14 +86,13 @@ class Scraper:
             "westchester":self.generate_pages("http://watertown.backpage.com/")
         }
         return places[place]
-        
-    def scraping_pages(self,links):
-        responses = []
-        for link in links:
-            r = requests.get(link)
-            responses.append(r)
-        return responses
+
+    def investigate(self,case_number):
+        self.scrape(links=self.base_urls)
+        self.investigate(case_number) #this is an infinite loop, which I am okay with.
+        time.sleep(200)
     
+    #This scrapes the ads themselves
     def scraping_ads(self,links):
         responses = []
         for link in links:
@@ -121,10 +120,6 @@ class Scraper:
             self.save(response.text,response.url)
         return data
     
-    def investigate(self,case_number):
-        data = self.scrape(links=self.base_urls)
-        self.investigate(case_number) #this is an infinite loop, which I am okay with.
-
     def save(self,text,url):
         html = HTML(text,url)
         db.session.add(html)
