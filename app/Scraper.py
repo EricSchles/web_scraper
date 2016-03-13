@@ -1,8 +1,9 @@
 import requests
-
+from app.models import HTML
 import lxml.html
 import requests
 from unidecode import unidecode
+from app import db
 
 class Scraper:
     def __init__(self,place=None):
@@ -116,12 +117,19 @@ class Scraper:
             tmp["text"] = response.text
             tmp["html"] = lxml.html.fromstring(response.text)
             data.append(tmp)
+            print "saving",response.url
+            self.save(response.text,response.url)
         return data
     
     def investigate(self,case_number):
         data = self.scrape(links=self.base_urls,scraping_ads=True)
         self.investigate(case_number) #this is an infinite loop, which I am okay with.
 
+    def save(self,text,url):
+        html = HTML(text,url)
+        db.session.add(html)
+        db.session.commit()
+        
 if __name__ == '__main__':
     scraper = Scraper(place="New York City")
     print scraper.scrape(links=["http://newyork.backpage.com/FemaleEscorts/"])
