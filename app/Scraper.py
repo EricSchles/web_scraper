@@ -125,6 +125,3 @@ class Scraper:
         db.session.add(html)
         db.session.commit()
         
-if __name__ == '__main__':
-    scraper = Scraper(place="New York City")
-    print scraper.scrape(links=["http://newyork.backpage.com/FemaleEscorts/"])
