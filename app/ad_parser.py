@@ -39,7 +39,7 @@ def parse_posters_age(html):
     return html.xpath('//p[@class="metaInfoDisplay"]')[0].text_content().split("Poster's age:")[1].split()
 
 def parse():
-    for row in HTML.query.all():
+    for ind,row in enumerate(HTML.query.all()):
         title = parse_title(row.html)
         posting_body = parse_posting_body(row.html)
         links = parse_links(row.html)
@@ -47,6 +47,8 @@ def parse():
         posted = parse_posted(row.html)
         location = parse_location(row.html)
         posters_age = parse_posters_age(row.html)
+        print type(title),type(posting_body),type(links),type(imgs),type(posted),type(location),type(posters_age)
+        print 
         parsed_html = ParsedHTML(row.html,row.url,row.timestamp,posting_body,title,imgs,links,posted,posters_age,location)
         db.session.add(parsed_html)
         db.session.commit()
