@@ -24,9 +24,7 @@ def parse_posted(html):
     html = lxml.html.fromstring(html)
     date = html.xpath('//div[@class="adInfo"]')[0].text_content().strip().split("\n")[1]
     print date
-    import sys
-    sys.exit(0)
-    #return datetime.strptime(date,"%A, %B %d, %Y %I:%M %p")
+    return datetime.strptime(date,"%A, %B %d, %Y %I:%M %p")
 
 def parse_location(html):
     html = lxml.html.fromstring(html)
