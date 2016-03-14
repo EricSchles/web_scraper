@@ -36,8 +36,9 @@ def parse_location(html):
 
 def parse_posters_age(html):
     html = lxml.html.fromstring(html)
-    return html.xpath('//p[@class="metaInfoDisplay"]')[0].text_content().split("Poster's age:")[1].split()
+    return html.xpath('//p[@class="metaInfoDisplay"]')[0].text_content().split("Poster's age:")[1].strip()
 
+    
 def parse():
     for ind,row in enumerate(HTML.query.all()):
         title = parse_title(row.html)
