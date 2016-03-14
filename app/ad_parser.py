@@ -27,4 +27,8 @@ def parse_posted(html):
 def location(html):
     html = lxml.html.fromstring(html)
     location = ""
-    html.xpath('//div[@style="padding-left:2em;"]')
+    for elem in html.xpath('//div[@style="padding-left:2em;"]'):
+        if "Location:" in elem.text_content():
+            location = elem.text_content()
+    location = location.replace("\r","").replace("\n","")
+    return location.split("Location:")[1].strip()
