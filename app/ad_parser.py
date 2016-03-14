@@ -6,17 +6,15 @@ from datetime import datetime
 
 def parse_title(html):
     html = lxml.html.fromstring(html)
-    return html.xpath('//div[@id="postingTitle"]//h1')[0].text_content()
+    return html.xpath('//div[@id="postingTitle"]//h1')[0].text_content().strip()
     
 def parse_posting_body(html):
     html = lxml.html.fromstring(html)
-    print html.xpath('//div[@id="postingBody"]')#[0].text_content()
-    import sys
-    sys.exit(0)
+    return html.xpath('//div[@class="postingBody"]')[0].text_content().strip()
     
 def parse_links(html):
     html = lxml.html.fromstring(html)
-    return json.dumps(html.xpath('//div[@id="postingBody"]//a/@href'))
+    return json.dumps(html.xpath('//div[@class="postingBody"]//a/@href'))
 
 def parse_imgs(html):
     html = lxml.html.fromstring(html)
@@ -24,8 +22,11 @@ def parse_imgs(html):
 
 def parse_posted(html):
     html = lxml.html.fromstring(html)
-    date = html.xpath('//div[@class="adInfo"]')[0].text_content().split("\n")[1]
-    return datetime.strptime(date,"%A, %B %d, %Y %I:%M %p")
+    date = html.xpath('//div[@class="adInfo"]')[0].text_content().strip().split("\n")[1]
+    print date
+    import sys
+    sys.exit(0)
+    #return datetime.strptime(date,"%A, %B %d, %Y %I:%M %p")
 
 def parse_location(html):
     html = lxml.html.fromstring(html)
