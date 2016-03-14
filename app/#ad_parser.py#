@@ -18,4 +18,4 @@ def parse_imgs(html):
     html = lxml.html.fromstring(html)
     return json.dumps(html.xpath('//ul[@id="viewAdPhotoLayout"]//img/@src'))
 
-def
+def 
