@@ -18,4 +18,6 @@ def parse_imgs(html):
     html = lxml.html.fromstring(html)
     return json.dumps(html.xpath('//ul[@id="viewAdPhotoLayout"]//img/@src'))
 
-def
+def parse_posted(html):
+    html = lxml.html.fromstring(html)
+    date = html.xpath('//div[@class="adInfo"]').text_content().split("\n")[1]
