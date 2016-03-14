@@ -1,5 +1,6 @@
 import lxml.html
 from app.models import *
+from app import db
 import json
 from datetime import datetime
 
@@ -38,5 +39,13 @@ def parse_posters_age(html):
     return html.xpath('//p[@class="metaInfoDisplay"]')[0].text_content().split("Poster's age:")[1].split()
 
 for row in HTML.query.all():
+    title = parse_title(row.html)
     posting_body = parse_posting_body(row.html)
-    ParsedHTML(row.html,row.url,row.timestamp,
+    links = parse_links(row.html)
+    imgs = parse_imgs(row.html)
+    posted = parse_posted(row.html)
+    location = parse_location(row.html)
+    posters_age = parse_posters_age(row.html)
+    parsed_html = ParsedHTML(row.html,row.url,row.timestamp,posting_body,title,imgs,links,posted,posters_age,location)
+    db.session.add(parsed_html)
+    db.session.commit()
