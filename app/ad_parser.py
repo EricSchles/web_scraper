@@ -48,8 +48,6 @@ def parse():
         posted = parse_posted(row.html)
         location = parse_location(row.html)
         posters_age = parse_posters_age(row.html)
-        print type(title),type(posting_body),type(links),type(imgs),type(posted),type(location),type(posters_age)
-        print 
         parsed_html = ParsedHTML(row.html,row.url,row.timestamp,posting_body,title,imgs,links,posted,posters_age,location)
         db.session.add(parsed_html)
         db.session.commit()
