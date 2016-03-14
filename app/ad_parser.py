@@ -36,3 +36,4 @@ def location(html):
 def posters_age(html):
     html = lxml.html.fromstring(html)
     return html.xpath('//p[@class="metaInfoDisplay"]')[0].text_content().split("Poster's age:")[1].split()
+
