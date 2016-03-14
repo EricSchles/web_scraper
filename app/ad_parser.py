@@ -5,11 +5,11 @@ from datetime import datetime
 
 def parse_title(html):
     html = lxml.html.fromstring(html)
-    return html.xpath('//div[@id="postingTitle"]/h1').text_content()
+    return html.xpath('//div[@id="postingTitle"]/h1')[0].text_content()
 
 def parse_posting_body(html):
     html = lxml.html.fromstring(html)
-    return html.xpath('//div[@id="postingBody"]').text_content()
+    return html.xpath('//div[@id="postingBody"]')[0].text_content()
 
 def parse_links(html):
     html = lxml.html.fromstring(html)
@@ -21,9 +21,9 @@ def parse_imgs(html):
 
 def parse_posted(html):
     html = lxml.html.fromstring(html)
-    date = html.xpath('//div[@class="adInfo"]').text_content().split("\n")[1]
+    date = html.xpath('//div[@class="adInfo"]')[0].text_content().split("\n")[1]
     return datetime.strptime(date,"%A, %B %d, %Y %I:%M %p")
 
 def location(html):
     html = lxml.html.fromstring(html)
-    html.xpath(
+    html.xpath('//div[@class="postingBody"]')[0].text_content()
