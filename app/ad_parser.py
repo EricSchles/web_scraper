@@ -1,6 +1,7 @@
 import lxml.html
 from app.models import HTML
 import json
+from datetime import datetime
 
 def parse_title(html):
     html = lxml.html.fromstring(html)
@@ -21,3 +22,4 @@ def parse_imgs(html):
 def parse_posted(html):
     html = lxml.html.fromstring(html)
     date = html.xpath('//div[@class="adInfo"]').text_content().split("\n")[1]
+    return datetime.strptime(date,"%A, %B %d, %Y %I:%M %p")
