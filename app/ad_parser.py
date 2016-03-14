@@ -32,3 +32,7 @@ def location(html):
             location = elem.text_content()
     location = location.replace("\r","").replace("\n","")
     return location.split("Location:")[1].strip()
+
+def posters_age(html):
+    html = lxml.html.fromstring(html)
+    return html.xpath('//p[@class="metaInfoDisplay"]')[0].text_content().split("Poster's age:")[1].split()
