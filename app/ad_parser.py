@@ -12,4 +12,8 @@ def parse_posting_body(html):
 
 def parse_links(html):
     html = lxml.html.fromstring(html)
-    html.xpath('//div[@id="postingBody"]//a/@href')
+    return json.dumps(html.xpath('//div[@id="postingBody"]//a/@href'))
+
+def parse_imgs(html):
+    html = lxml.html.fromstring(html)
+    return json.dumps(html.xpath('//
