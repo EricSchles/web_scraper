@@ -30,10 +30,10 @@ class ParsedHTML(db.Model):
     posters_age = db.Column(db.String)
     location = db.Column(db.String)
 
-    def __init__(self,html,url,posting_body,title,img_urls,links,date_posted,posters_age,location):
+    def __init__(self,html,url,timestamp,posting_body,title,img_urls,links,date_posted,posters_age,location):
         self.html = html
         self.url = url
-        self.timestamp = datetime.now()
+        self.timestamp = timestamp
         self.posting_body = posting_body
         self.title = title
         self.img_urls = img_urls

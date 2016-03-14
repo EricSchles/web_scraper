@@ -1,5 +1,5 @@
 import lxml.html
-from app.models import HTML
+from app.models import *
 import json
 from datetime import datetime
 
@@ -24,7 +24,7 @@ def parse_posted(html):
     date = html.xpath('//div[@class="adInfo"]')[0].text_content().split("\n")[1]
     return datetime.strptime(date,"%A, %B %d, %Y %I:%M %p")
 
-def location(html):
+def parse_location(html):
     html = lxml.html.fromstring(html)
     location = ""
     for elem in html.xpath('//div[@style="padding-left:2em;"]'):
@@ -33,7 +33,10 @@ def location(html):
     location = location.replace("\r","").replace("\n","")
     return location.split("Location:")[1].strip()
 
-def posters_age(html):
+def parse_posters_age(html):
     html = lxml.html.fromstring(html)
     return html.xpath('//p[@class="metaInfoDisplay"]')[0].text_content().split("Poster's age:")[1].split()
 
+for row in HTML.query.all():
+    posting_body = parse_posting_body(row.html)
+    ParsedHTML(row.html,row.url,row.timestamp,
