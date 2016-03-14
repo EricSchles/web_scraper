@@ -26,4 +26,4 @@ def parse_posted(html):
 
 def location(html):
     html = lxml.html.fromstring(html)
-    html.xpath(
+    html.xpath('//div[@class="postingBody"]').text_content()
